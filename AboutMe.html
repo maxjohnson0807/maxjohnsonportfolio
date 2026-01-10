@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About Me - Max Johnson</title>
+    <link rel="stylesheet" href="MaxJohnsonStyleSheet.css" type="text/css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        .about-me-container {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 3rem;
+            align-items: start;
+            width: 101%;
+        }
+
+        .headshot-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .headshot-wrapper {
+            width: 100%;
+            max-width: 400px;
+            aspect-ratio: 1;
+            border-radius: 24px;
+            overflow: hidden;
+            background: rgba(59, 130, 246, 0.08);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--shadow-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .headshot-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .headshot-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .about-content {
+            display: flex;
+            flex-direction: column;
+        }
+
+        @media (max-width: 1024px) {
+            .about-me-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .headshot-wrapper {
+                max-width: 100%;
+                max-width: 300px;
+                margin: 0 auto;
+            }
+        }
+
+        .about-me-section {
+            padding-top: 160px;
+        }
+
+        /* Disable hover scaling animation for about-me-section portfolio-card */
+        .about-me-section .portfolio-card {
+            transition: none !important;
+            cursor: default !important;
+        }
+
+        .about-me-section .portfolio-card:hover {
+            transform: none !important;
+            box-shadow: var(--shadow-md) !important;
+            border-color: var(--glass-border) !important;
+            background: rgba(59, 130, 246, 0.08) !important;
+            cursor: default !important;
+        }
+
+        .about-me-section .portfolio-card:hover::before {
+            opacity: 0 !important;
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <h1>Max Johnson</h1>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="MaxJohnsonHTML.html">Home</a></li>
+                <li><a href="MaxJohnsonCastleSiegeHTML.html">Castle Siege</a></li>
+                <li><a href="MaxJohnsonAdditionalGamesDevelopedHTML.html">More Games</a></li>
+                <li><a href="GraphicsCreated.html">Graphics</a></li>
+                <li><a href="MaxJohnsonMockupsCreated.html">Mockups</a></li>
+                <li><a href="AboutMe.html">About Me</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div><br><br></div>
+    <!-- About Me Section -->
+    <section class="portfolio about-me-section" style="max-width: 1500px; padding: 3rem 2rem 6rem 2rem; margin: 0 auto;">
+        <div class="portfolio-grid" style="grid-template-columns: 1fr; max-width: 100%;">
+            <div class="portfolio-card" style="width: 100%;">
+                <div class="card-content">
+                    <div class="about-me-container">
+                        <!-- Headshot Section -->
+                        <div class="headshot-container">
+                            <div class="headshot-wrapper">
+                                <div class="headshot-placeholder">
+                                    <img src="S:\Documents\HTML\HeadShot1.jpg" alt="Max Johnson">
+            
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- About Me Content -->
+                        <div class="about-content">
+                            <h2 class="card-title" style="text-align: left; margin-bottom: 1.5rem;">About Me</h2>
+                            <p style="font-size: 1.25rem; line-height: 1.8; color: var(--text-secondary); text-align: left; margin-bottom: 0;">
+                                My philosophy is to bring good products to good people. If I intend to make something, I will put in 100% effort because I love what I make and want to share it with the world. As a Digital Media Designer Major from Florida Gulf Coast University, I hone my skills in Unreal Engine, Unity, C++, HTML/CSS, and Adobe Creative Cloud. I take extensive pride in all my work including designing and developing games, websites, apps, and graphical work. My creativity, commitment, and relentless pursuit of success have earned me widespread acclaim from peers and colleagues.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div><br><br></div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <h3 class="footer-title">Contact</h3>
+                <div class="footer-links">
+                    <a href="https://www.linkedin.com/in/max-johnson-62bb941b6/" target="_blank" class="footer-link">
+                        LinkedIn
+                    </a>
+                    <a href="mailto:maxjohnson@gmail.com" class="footer-link">
+                        maxjohnson@gmail.com
+                    </a>
+                    <a href="tel:+12392735039" class="footer-link">
+                        (239)-273-5039
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
