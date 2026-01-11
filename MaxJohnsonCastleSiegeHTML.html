@@ -1,0 +1,862 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Castle Siege - Max Johnson</title>
+    <link rel="stylesheet" href="MaxJohnsonStyleSheet.css" type="text/css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* Disable hover animations for Castle Siege page */
+        .portfolio-card {
+            transition: none !important;
+            cursor: default !important;
+        }
+        
+        .portfolio-card:hover {
+            transform: none !important;
+            box-shadow: var(--shadow-md) !important;
+            border-color: var(--glass-border) !important;
+            background: rgba(59, 130, 246, 0.08) !important;
+        }
+        
+        .portfolio-card:hover::before {
+            opacity: 0 !important;
+        }
+        
+        .portfolio-card:hover .card-image {
+            transform: none !important;
+        }
+        
+        .portfolio-card:hover .card-image img,
+        .portfolio-card:hover .card-image video {
+            filter: none !important;
+        }
+        
+        .card-image {
+            transition: none !important;
+        }
+        
+        .card-image img,
+        .card-image video {
+            transition: none !important;
+        }
+        
+        .hero-subtitle {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .hero-subtitle:hover {
+            color: #60a5fa !important;
+            transform: translateY(-2px);
+        }
+        
+        .steam-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 50%, #2563eb 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .steam-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .steam-button:hover {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 50%, #1d4ed8 100%);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.6);
+        }
+        
+        .steam-button:hover::before {
+            left: 100%;
+        }
+        
+        .steam-button:active {
+            transform: translateY(-1px) scale(1.02);
+        }
+        
+        /* Button container for side-by-side buttons */
+        .button-container {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .steam-button,
+        .itch-button {
+            flex: 0 1 auto;
+        }
+        
+        /* Make trailer video smaller */
+        #game-trailer {
+            max-width: 100%;
+            margin: 0 auto;
+            display: block;
+        }
+        
+        .trailer-card .card-content {
+            padding: 2rem;
+        }
+        
+        .trailer-card .card-image {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        /* Side-by-side layout for trailer and about section */
+        .trailer-about-container {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+        
+        .trailer-side {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .about-side {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .trailer-side video {
+            width: 100%;
+            height: auto;
+            border-radius: 16px;
+        }
+        
+        /* Image Carousel within trailer-about-container */
+        .carousel-section {
+            grid-column: 1 / -1;
+            width: 100%;
+            margin-top: 0.25rem;
+        }
+        
+        /* Developer Commentary side-by-side layout */
+        .developer-commentary-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+        
+        .commentary-item {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        
+        .commentary-item .card-image {
+            width: 100%;
+            height: 0;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            position: relative;
+            overflow: hidden;
+            border-radius: 16px;
+            background: #000;
+        }
+        
+        .commentary-item video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100% !important;
+            height: 100% !important;
+            min-width: 100%;
+            min-height: 100%;
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: cover;
+            border-radius: 16px;
+        }
+        
+        @media (max-width: 1024px) {
+            .trailer-about-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .developer-commentary-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .trailer-video-container {
+                max-width: 90%;
+                margin: 0 auto;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .trailer-video-container {
+                max-width: 85%;
+                margin: 0 auto;
+            }
+        }
+        
+        /* Footer Styles */
+        .footer {
+            position: relative;
+            z-index: 1;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-top: 1px solid var(--glass-border);
+            padding: 3rem 2rem;
+            margin-top: 4rem;
+        }
+        
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .footer-content {
+            text-align: center;
+        }
+        
+        .footer-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.75rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 50%, #2563eb 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .footer-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 1.25rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+        }
+        
+        .footer-link:hover {
+            color: var(--text-primary);
+            background: rgba(59, 130, 246, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        @media (max-width: 768px) {
+            .footer {
+                padding: 2rem 1.5rem;
+            }
+            
+            .footer-links {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+            
+            .footer-link {
+                font-size: 1.15rem;
+            }
+        }
+        
+        /* Image Carousel Styles - Horizontal Scroll */
+        .image-carousel {
+            position: relative;
+            width: 100%;
+            max-width: 100%;
+            margin: 0 auto;
+            overflow-x: auto;
+            overflow-y: hidden;
+            border-radius: 16px;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(59, 130, 246, 0.6) rgba(15, 23, 42, 0.3);
+        }
+        
+        .image-carousel::-webkit-scrollbar {
+            height: 12px;
+        }
+        
+        .image-carousel::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.3);
+            border-radius: 8px;
+        }
+        
+        .image-carousel::-webkit-scrollbar-thumb {
+            background: rgba(59, 130, 246, 0.6);
+            border-radius: 8px;
+        }
+        
+        .image-carousel::-webkit-scrollbar-thumb:hover {
+            background: rgba(59, 130, 246, 0.8);
+        }
+        
+        .carousel-container {
+            display: flex;
+            gap: 1rem;
+            padding: 0.5rem 0;
+            width: max-content;
+        }
+        
+        .carousel-slide {
+            flex-shrink: 0;
+            width: 250px;
+            height: 150px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .carousel-slide:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
+            border-color: rgba(59, 130, 246, 0.6);
+        }
+        
+        .carousel-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+        
+        /* Hide navigation buttons and indicators */
+        .carousel-nav {
+            display: none;
+        }
+        
+        .carousel-indicators {
+            display: none;
+        }
+        
+        /* Full-Screen Overlay Modal */
+        .image-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .image-modal.active {
+            display: flex;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        .modal-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content img {
+            max-width: 100%;
+            max-height: 90vh;
+            object-fit: contain;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+            animation: zoomIn 0.3s ease;
+        }
+        
+        @keyframes zoomIn {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: -50px;
+            right: 0;
+            background: rgba(59, 130, 246, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 2rem;
+            font-weight: bold;
+            z-index: 10000;
+        }
+        
+        .modal-close:hover {
+            background: rgba(59, 130, 246, 1);
+            transform: scale(1.1) rotate(90deg);
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.5);
+        }
+        
+        .modal-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(59, 130, 246, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 2rem;
+            font-weight: bold;
+            z-index: 10000;
+        }
+        
+        .modal-nav:hover {
+            background: rgba(59, 130, 246, 1);
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.5);
+        }
+        
+        .modal-nav.prev {
+            left: 2rem;
+        }
+        
+        .modal-nav.next {
+            right: 2rem;
+        }
+        
+        @media (max-width: 768px) {
+            .carousel-slide {
+                width: 200px;
+                height: 120px;
+            }
+            
+            .modal-close {
+                top: 1rem;
+                right: 1rem;
+                width: 40px;
+                height: 40px;
+                font-size: 1.5rem;
+            }
+            
+            .modal-nav {
+                width: 45px;
+                height: 45px;
+                font-size: 1.5rem;
+            }
+            
+            .modal-nav.prev {
+                left: 1rem;
+            }
+            
+            .modal-nav.next {
+                right: 1rem;
+            }
+            
+            .modal-content {
+                max-width: 95%;
+                max-height: 85%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <h1>Max Johnson</h1>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="MaxJohnsonCastleSiegeHTML.html">Castle Siege</a></li>
+                <li><a href="MaxJohnsonAdditionalGamesDevelopedHTML.html">More Games</a></li>
+                <li><a href="GraphicsCreated.html">Graphics</a></li>
+                <li><a href="MaxJohnsonMockupsCreated.html">Mockups</a></li>
+                <li><a href="AboutMe.html">About Me</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-image">
+            <img src="2.png" alt="Castle Siege">
+        </div>
+        <div class="hero-overlay">
+            <div class="hero-content">
+                <h2 class="hero-title">Castle Siege</h2>
+                <p class="hero-subtitle" id="scroll-to-trailer" onclick="scrollToTrailer()">Click here to see trailer!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content Section -->
+    <section class="portfolio" style="max-width: 100%; padding: 3rem 1rem 6rem 1rem;">
+        <div class="portfolio-grid" style="grid-template-columns: 1fr; max-width: 100%;">
+            <!-- Trailer and About Section - Side by Side -->
+            <div class="portfolio-card" style="width: 100%;">
+                <div class="card-content">
+                    <div class="trailer-about-container">
+                        <!-- Left Side: Game Trailer -->
+                        <div class="trailer-side">
+                            <h2 class="card-title" style="text-align: left; margin-bottom: 1.5rem;">Game Trailer</h2>
+                            <div class="trailer-video-container" style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 16px;">
+                                <iframe id="game-trailer" src="https://www.youtube.com/embed/TOQMzVV-5pk" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 16px;"></iframe>
+                            </div>
+                        </div>
+                        
+                        <!-- Right Side: About Castle Siege -->
+                        <div class="about-side">
+                            <h2 class="card-title" style="text-align: left; margin-bottom: 1.5rem;">About Castle Siege</h2>
+                            <p style="font-size: 1.25rem; line-height: 1.8; color: var(--text-secondary); text-align: left; margin-bottom: 2rem;">
+                                Castle Siege is a third-person medieval-style combat game set in an epic, immersive world. 
+                                Fight through waves of determined enemies as you lead your army in taking back your castle 
+                                and claiming victory over your kingdom! Castle Siege features a singleplayer experience 
+                                blending adventure with fast-paced action, and is praised for its incredible visuals, 
+                                advanced AI, and cinematic gameplay.
+                            </p>
+                            <div class="button-container" style="text-align: left;">
+                                <a href="https://store.steampowered.com/app/3887790/Castle_Siege/" target="_blank" class="steam-button">
+                                    Visit Steam Page
+                                </a>
+                                <a href="https://maxj714.itch.io/castle-siege" target="_blank" class="steam-button itch-button">
+                                    Visit itch.io Page
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <!-- Image Carousel at the bottom -->
+                        <div class="carousel-section">
+                            <h2 class="card-title" style="text-align: left; margin-bottom: 0.5rem;">Screenshots</h2>
+                            <div class="image-carousel">
+                                <div class="carousel-container" id="carousel-container">
+                                    <div class="carousel-slide" data-index="0">
+                                        <img src="CombatPicture.png" alt="Castle Siege Screenshot 1">
+                                    </div>
+                                    <div class="carousel-slide" data-index="1">
+                                        <img src="AerialViewGroupSnow.png" alt="Castle Siege Screenshot 2">
+                                    </div>
+                                    <div class="carousel-slide" data-index="2">
+                                        <img src="CaptainRemastered.png" alt="Castle Siege Screenshot 3">
+                                    </div>
+                                    <div class="carousel-slide" data-index="3">
+                                        <img src="AnotherSnowPicture.png" alt="Castle Siege Screenshot 4">
+                                    </div>
+                                    <div class="carousel-slide" data-index="4">
+                                        <img src="FriendliesRushingIntoBattle.png" alt="Castle Siege Screenshot 5">
+                                    </div>
+                                    <div class="carousel-slide" data-index="5">
+                                        <img src="Underground2RemasteredPerfectLighting.png" alt="Castle Siege Screenshot 6">
+                                    </div>
+                                    <div class="carousel-slide" data-index="6">
+                                        <img src="FortView2.png" alt="Castle Siege Screenshot 7">
+                                    </div>
+                                    <div class="carousel-slide" data-index="7">
+                                        <img src="AerialViewLargeGroup1.png" alt="Castle Siege Screenshot 8">
+                                    </div>
+                                    <div class="carousel-slide" data-index="8">
+                                        <img src="GreatView1.png" alt="Castle Siege Screenshot 9">
+                                    </div>
+                                    <div class="carousel-slide" data-index="9">
+                                        <img src="Screenshot 2025-08-15 181151.png" alt="Castle Siege Screenshot 10">
+                                    </div>
+                                    <div class="carousel-slide" data-index="10">
+                                        <img src="BallistaView.png" alt="Castle Siege Screenshot 11">
+                                    </div>
+                                    <div class="carousel-slide" data-index="11">
+                                        <img src="ForrtSoldiers2.png" alt="Castle Siege Screenshot 12">
+                                    </div>
+                                    <div class="carousel-slide" data-index="12">
+                                        <img src="CastleFight.png" alt="Castle Siege Screenshot 13">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Goal-->
+            <div class="portfolio-card" style="width: 100%;">
+                <div class="card-content">
+                    <h2 class="card-title" style="text-align: left; margin-bottom: 1.5rem;">Goal of creating Castle Siege</h2>
+                    <p style="font-size: 1.25rem; line-height: 1.8; color: var(--text-secondary); text-align: left; margin-bottom: 2rem;">
+                        Castle Siege started off as a small project for me to learn more about Unreal Engine 5's features and practice game development. After creating the terrain, foliage, and castle environment I wanted to test the limits of my skills with a full on combat system along with friendly and enemy AI's that interact with each other and the player's actions. Watching a full scale battle unfold between the NPCs that I made looked so incredible, it was clear I had to turn this into a full sized game.<br><br>I came up with a story as I built more of the environment with the main goal being to keep the player engaged and satisfied at all times; I did this through pacing. For example, instead of a long, drawn out introduction Castle Siege provides a short cutscene and throws the player straight into an intense, losing battle followed by a mysterious, underground exploration section to absorb what's happened so far, and to ponder what's next. With extensive playtesting and various feedback from peers I'm incredibly proud of what Castle Siege has become. 
+                    </p>
+                </div>
+            </div>
+
+            <!-- Developer Commentary -->
+            <div class="portfolio-card" style="width: 100%;">
+                <div class="card-content">
+                    <h2 class="card-title" style="text-align: left; margin-bottom: 1.5rem;">Developer Commentary</h2>
+                    <div class="developer-commentary-container">
+                        <!-- Big Battle -->
+                        <div class="commentary-item">
+                            <div class="card-image">
+                                <iframe id="developer-commentary-big-battle" src="https://www.youtube.com/embed/yDYhReCuw4g" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 16px;"></iframe>
+                            </div>
+                            <p style="font-size: 1.25rem; line-height: 1.8; color: var(--text-secondary); text-align: left; margin-top: 1.5rem;">
+                                The "Big Battle" section consists of player commanded war machines against waves of enemies.
+                            </p>
+                        </div>
+                        
+                        <!-- Ending Cutscene -->
+                        <div class="commentary-item">
+                            <div class="card-image">
+                                <iframe id="developer-commentary-ending-cutscene" src="https://www.youtube.com/embed/uI28_2K0FD4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 16px;"></iframe>
+                            </div>
+                            <p style="font-size: 1.25rem; line-height: 1.8; color: var(--text-secondary); text-align: left; margin-top: 1.5rem;">
+                                The Ending Cutscene which was quite difficult to make.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Full-Screen Image Modal -->
+    <div class="image-modal" id="image-modal">
+        <button class="modal-close" id="modal-close" aria-label="Close">&times;</button>
+        <button class="modal-nav prev" id="modal-prev" aria-label="Previous">‹</button>
+        <button class="modal-nav next" id="modal-next" aria-label="Next">›</button>
+        <div class="modal-content">
+            <img id="modal-image" src="" alt="Enlarged Screenshot">
+        </div>
+    </div>
+    
+    <script>
+        function scrollToTrailer() {
+            const trailer = document.getElementById('game-trailer');
+            if (!trailer) {
+                console.error('Trailer iframe not found');
+                return;
+            }
+            
+            const trailerCard = trailer.closest('.portfolio-card');
+            if (!trailerCard) {
+                console.error('Trailer card not found');
+                return;
+            }
+            
+            // Get the position of the iframe element
+            const trailerRect = trailer.getBoundingClientRect();
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const trailerTop = trailerRect.top + scrollTop;
+            
+            // Calculate scroll position to center the video in viewport
+            const viewportHeight = window.innerHeight;
+            const scrollPosition = trailerTop - (viewportHeight / 2) + (trailerRect.height / 2);
+            
+            // Smooth scroll to the video
+            window.scrollTo({
+                top: Math.max(0, scrollPosition - 100), // Offset to show content below
+                behavior: 'smooth'
+            });
+            
+            // Note: YouTube iframes cannot be programmatically controlled due to autoplay restrictions
+            // The video will be visible after scrolling, and users can click play manually
+        }
+        
+        // Image Modal functionality
+        let currentModalImageIndex = 0;
+        let allImages = [];
+        
+        function initImageCarousel() {
+            const slides = document.querySelectorAll('.carousel-slide');
+            allImages = Array.from(slides).map(slide => {
+                const img = slide.querySelector('img');
+                return {
+                    src: img.src,
+                    alt: img.alt
+                };
+            });
+            
+            // Add click event listeners to all carousel images
+            slides.forEach((slide, index) => {
+                slide.addEventListener('click', () => {
+                    openImageModal(index);
+                });
+            });
+            
+            // Modal controls
+            const modal = document.getElementById('image-modal');
+            const modalClose = document.getElementById('modal-close');
+            const modalPrev = document.getElementById('modal-prev');
+            const modalNext = document.getElementById('modal-next');
+            
+            if (modalClose) {
+                modalClose.addEventListener('click', closeImageModal);
+            }
+            
+            if (modalPrev) {
+                modalPrev.addEventListener('click', () => {
+                    navigateModal(-1);
+                });
+            }
+            
+            if (modalNext) {
+                modalNext.addEventListener('click', () => {
+                    navigateModal(1);
+                });
+            }
+            
+            // Close modal on background click
+            if (modal) {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) {
+                        closeImageModal();
+                    }
+                });
+            }
+            
+            // Keyboard navigation
+            document.addEventListener('keydown', (e) => {
+                if (modal && modal.classList.contains('active')) {
+                    if (e.key === 'Escape') {
+                        closeImageModal();
+                    } else if (e.key === 'ArrowLeft') {
+                        navigateModal(-1);
+                    } else if (e.key === 'ArrowRight') {
+                        navigateModal(1);
+                    }
+                }
+            });
+        }
+        
+        function openImageModal(index) {
+            if (index < 0 || index >= allImages.length) return;
+            
+            currentModalImageIndex = index;
+            const modal = document.getElementById('image-modal');
+            const modalImage = document.getElementById('modal-image');
+            
+            if (modal && modalImage) {
+                modalImage.src = allImages[index].src;
+                modalImage.alt = allImages[index].alt;
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden'; // Prevent background scrolling
+            }
+        }
+        
+        function closeImageModal() {
+            const modal = document.getElementById('image-modal');
+            if (modal) {
+                modal.classList.remove('active');
+                document.body.style.overflow = ''; // Restore scrolling
+            }
+        }
+        
+        function navigateModal(direction) {
+            currentModalImageIndex += direction;
+            
+            if (currentModalImageIndex < 0) {
+                currentModalImageIndex = allImages.length - 1;
+            } else if (currentModalImageIndex >= allImages.length) {
+                currentModalImageIndex = 0;
+            }
+            
+            const modalImage = document.getElementById('modal-image');
+            if (modalImage) {
+                modalImage.src = allImages[currentModalImageIndex].src;
+                modalImage.alt = allImages[currentModalImageIndex].alt;
+            }
+        }
+        
+        // Also make the subtitle clickable via event listener as backup
+        document.addEventListener('DOMContentLoaded', function() {
+            const subtitle = document.getElementById('scroll-to-trailer');
+            if (subtitle) {
+                subtitle.addEventListener('click', scrollToTrailer);
+            }
+            
+            // Initialize image carousel with modal functionality
+            initImageCarousel();
+        });
+    </script>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <h3 class="footer-title">Contact</h3>
+                <div class="footer-links">
+                    <a href="https://www.linkedin.com/in/max-johnson-62bb941b6/" target="_blank" class="footer-link">
+                        LinkedIn
+                    </a>
+                    <a href="mailto:maxjohnson@gmail.com" class="footer-link">
+                        maxjohnson@gmail.com
+                    </a>
+                    <a href="tel:+12392735039" class="footer-link">
+                        (239)-273-5039
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
