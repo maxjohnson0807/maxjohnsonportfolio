@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MaxJohnsonPlanet56</title>
+    <link rel="stylesheet" href="MaxJohnsonStyleSheet.css" type="text/css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        .portfolio-card {
+            transition: none !important;
+            cursor: default !important;
+        }
+
+        .portfolio-card:hover {
+            transform: none !important;
+            box-shadow: var(--shadow-md) !important;
+            border-color: var(--glass-border) !important;
+            background: rgba(59, 130, 246, 0.08) !important;
+        }
+
+        .portfolio-card:hover::before {
+            opacity: 0 !important;
+        }
+
+        .portfolio-card:hover .card-image img {
+            filter: none !important;
+        }
+
+        .planet56-layout {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: clamp(1.5rem, 3vw, 3rem);
+        }
+
+        .planet56-slideshow {
+            flex: 1.15 1 0;
+            min-width: 0;
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            background: #0f172a;
+            box-shadow: var(--shadow-md);
+        }
+
+        .planet56-slideshow img {
+            display: block;
+            width: 100%;
+            height: auto;
+            aspect-ratio: 16 / 9;
+            object-fit: cover;
+        }
+
+        .planet56-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 2.6rem;
+            height: 2.6rem;
+            border: 1px solid rgba(255, 255, 255, 0.45);
+            border-radius: 999px;
+            background: rgba(15, 23, 42, 0.72);
+            color: #fff;
+            font-size: 1.6rem;
+            line-height: 1;
+            cursor: pointer;
+        }
+
+        .planet56-nav.prev {
+            left: 0.75rem;
+        }
+
+        .planet56-nav.next {
+            right: 0.75rem;
+        }
+
+        .planet56-nav:hover,
+        .planet56-nav:focus-visible {
+            background: rgba(37, 99, 235, 0.9);
+        }
+
+        .planet56-nav:focus-visible {
+            outline: 3px solid #fff;
+            outline-offset: 2px;
+        }
+
+        .planet56-caption {
+            position: absolute;
+            left: 0.85rem;
+            bottom: 0.75rem;
+            margin: 0;
+            padding: 0.3rem 0.7rem;
+            border-radius: 999px;
+            background: rgba(15, 23, 42, 0.72);
+            color: #fff;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.9rem;
+        }
+
+        .planet56-copy {
+            flex: 0.85 1 0;
+            min-width: 0;
+        }
+
+        .planet56-copy p {
+            font-size: 1.25rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            text-align: left;
+            margin: 0;
+        }
+
+        @media (max-width: 900px) {
+            .planet56-layout {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <h1>Max Johnson</h1>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="MaxJohnsonCastleSiegeHTML.html">Castle Siege</a></li>
+                <li><a href="MaxJohnsonPlanet56.html">Planet 56</a></li>
+                <li><a href="MaxJohnsonAdditionalGamesDevelopedHTML.html">More Games</a></li>
+                <li><a href="GraphicsCreated.html">Graphics</a></li>
+                <li><a href="MaxJohnsonMockupsCreated.html">Mockups</a></li>
+                <li><a href="AboutMe.html">About Me</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-image">
+            <img src="planet56/Level1Loading.png" alt="Planet 56">
+        </div>
+        <div class="hero-overlay">
+            <div class="hero-content">
+                <h2 class="hero-title">Planet 56</h2>
+                <p class="hero-subtitle">My next upcoming game.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="portfolio" style="max-width: 100%; padding: 3rem 1rem 6rem 1rem;">
+        <div class="portfolio-grid" style="grid-template-columns: 1fr; max-width: 100%;">
+            <div class="portfolio-card" style="width: 100%;">
+                <div class="card-content planet56-layout">
+                    <div class="planet56-slideshow">
+                        <img id="planet56-slide" src="planet56/Gameplay-1.jpg" alt="Gameplay 1">
+                        <button type="button" class="planet56-nav prev" id="planet56-prev" aria-label="Previous image">&#8249;</button>
+                        <button type="button" class="planet56-nav next" id="planet56-next" aria-label="Next image">&#8250;</button>
+                        <p class="planet56-caption" id="planet56-caption">Gameplay 1</p>
+                    </div>
+                    <div class="planet56-copy">
+                        <h2 class="card-title">About Planet 56</h2>
+                        <p>Planet 56 is my next major title I plan shipping onto Steam soon. Like "Castle Siege", this is another test of my creative limits and programming abilities. One of my goals for this project is to push the limits of computer performance while still maintaining the most efficient optimization by using Unreal's performance profiling tools. While still in development, I am holding playtesting sessions much more often to ensure gameplay exceeds player expectations.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <h3 class="footer-title">Contact</h3>
+                <div class="footer-links">
+                    <a href="https://www.linkedin.com/in/max-johnson-62bb941b6/" target="_blank" class="footer-link">
+                        LinkedIn
+                    </a>
+                    <a href="mailto:maxjohnson@gmail.com" class="footer-link">
+                        maxjohnson@gmail.com
+                    </a>
+                    <a href="tel:+12392735039" class="footer-link">
+                        (239)-273-5039
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        (function () {
+            var slides = [
+                { src: "planet56/Gameplay-1.jpg", label: "Gameplay 1" },
+                { src: "planet56/Gameplay-2.jpg", label: "Gameplay 2" },
+                { src: "planet56/Gameplay-3.jpg", label: "Gameplay 3" },
+                { src: "planet56/Gameplay-4.jpg", label: "Gameplay 4" },
+                { src: "planet56/Gameplay-5.jpg", label: "Gameplay 5" },
+                { src: "planet56/Gameplay-6.jpg", label: "Gameplay 6" },
+                { src: "planet56/Cinematic-1.png", label: "Cinematic 1" },
+                { src: "planet56/Cinematic-2.jpg", label: "Cinematic 2" },
+                { src: "planet56/Cinematic-3.jpg", label: "Cinematic 3" },
+                { src: "planet56/Cinematic-4.jpg", label: "Cinematic 4" }
+            ];
+            var index = 0;
+            var image = document.getElementById("planet56-slide");
+            var caption = document.getElementById("planet56-caption");
+
+            function show(next) {
+                index = (next + slides.length) % slides.length;
+                image.src = slides[index].src;
+                image.alt = slides[index].label;
+                caption.textContent = slides[index].label;
+            }
+
+            document.getElementById("planet56-prev").addEventListener("click", function () {
+                show(index - 1);
+            });
+            document.getElementById("planet56-next").addEventListener("click", function () {
+                show(index + 1);
+            });
+
+            setInterval(function () {
+                show(index + 1);
+            }, 8000);
+        })();
+    </script>
+</body>
+</html>

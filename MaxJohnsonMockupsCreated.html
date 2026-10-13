@@ -19,6 +19,7 @@
             <ul class="nav-menu">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="MaxJohnsonCastleSiegeHTML.html">Castle Siege</a></li>
+                <li><a href="MaxJohnsonPlanet56.html">Planet 56</a></li>
                 <li><a href="MaxJohnsonAdditionalGamesDevelopedHTML.html">More Games</a></li>
                 <li><a href="GraphicsCreated.html">Graphics</a></li>
                 <li><a href="MaxJohnsonMockupsCreated.html">Mockups</a></li>
@@ -47,7 +48,8 @@
             <div class="figma-grid">
                 <div class="figma-item">
                     <div class="figma-embed-wrapper">
-                        <iframe src= "https://maxjohnson0807.github.io/Nuka-Cola-Website/" allowfullscreen></iframe>
+                        <iframe id="nuka-cola-preview" src="https://maxjohnson0807.github.io/Nuka-Cola-Website/" allow="fullscreen" allowfullscreen></iframe>
+                        <button type="button" class="figma-fullscreen-btn" data-fullscreen-target="nuka-cola-preview">Full screen</button>
                     </div>
                     <h3 class="figma-title">Nuka Cola</h3>
                     <p class="figma-description">A mockup website for Nuka Cola. (Work in progress).</p>
@@ -102,6 +104,82 @@
             </div>
         </div>
     </footer>
+    <script>
+        (function () {
+            var buttons = document.querySelectorAll("[data-fullscreen-target]");
+
+            function frameFor(button) {
+                return document.getElementById(button.getAttribute("data-fullscreen-target"));
+            }
+
+            function wrapperFor(button) {
+                var frame = frameFor(button);
+                return frame ? frame.closest(".figma-embed-wrapper") : null;
+            }
+
+            function isOpen(wrapper) {
+                return wrapper && (wrapper.classList.contains("is-expanded") || document.fullscreenElement === wrapper);
+            }
+
+            function syncButtons() {
+                buttons.forEach(function (button) {
+                    var wrapper = wrapperFor(button);
+                    var active = isOpen(wrapper);
+                    button.setAttribute("aria-pressed", active ? "true" : "false");
+                    button.textContent = active ? "Exit full screen" : "Full screen";
+                    var item = wrapper && wrapper.closest(".figma-item");
+                    if (item) item.classList.toggle("is-presenting", active);
+                });
+            }
+
+            function collapse(wrapper) {
+                if (!wrapper) return;
+                wrapper.classList.remove("is-expanded");
+                if (wrapper._placeholder && wrapper._placeholder.parentNode) {
+                    wrapper._placeholder.parentNode.insertBefore(wrapper, wrapper._placeholder);
+                    wrapper._placeholder.remove();
+                    wrapper._placeholder = null;
+                }
+                if (document.fullscreenElement === wrapper && document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+                syncButtons();
+            }
+
+            function expand(wrapper) {
+                var placeholder = document.createElement("span");
+                placeholder.hidden = true;
+                wrapper._placeholder = placeholder;
+                wrapper.parentNode.insertBefore(placeholder, wrapper);
+                document.body.appendChild(wrapper);
+                wrapper.classList.add("is-expanded");
+                syncButtons();
+
+                var request = wrapper.requestFullscreen || wrapper.webkitRequestFullscreen;
+                if (!request) return;
+                var pending = request.call(wrapper);
+                if (pending && pending.catch) pending.catch(function () {});
+            }
+
+            buttons.forEach(function (button) {
+                button.addEventListener("click", function () {
+                    var wrapper = wrapperFor(button);
+                    if (!wrapper) return;
+                    if (isOpen(wrapper)) collapse(wrapper);
+                    else expand(wrapper);
+                });
+            });
+
+            document.addEventListener("fullscreenchange", function () {
+                if (document.fullscreenElement) return;
+                document.querySelectorAll(".figma-embed-wrapper.is-expanded").forEach(collapse);
+            });
+            document.addEventListener("keydown", function (event) {
+                if (event.key !== "Escape") return;
+                document.querySelectorAll(".figma-embed-wrapper.is-expanded").forEach(collapse);
+            });
+        })();
+    </script>
 </body>
 
 </html>

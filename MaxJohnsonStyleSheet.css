@@ -272,6 +272,59 @@ body {
     border-radius: 12px 12px 0 0;
 }
 
+.figma-fullscreen-btn {
+    position: absolute;
+    top: 0.65rem;
+    right: 0.65rem;
+    z-index: 2;
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    border-radius: 999px;
+    padding: 0.4rem 0.85rem;
+    background: var(--primary-gradient);
+    color: #fff;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    box-shadow: var(--shadow-sm);
+}
+
+.figma-fullscreen-btn:hover,
+.figma-fullscreen-btn:focus-visible {
+    background: var(--secondary-gradient);
+}
+
+.figma-fullscreen-btn:focus-visible {
+    outline: 3px solid #fff;
+    outline-offset: 2px;
+}
+
+.figma-item.is-presenting,
+.figma-item.is-presenting:hover {
+    transform: none;
+}
+
+.figma-embed-wrapper.is-expanded {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    width: 100vw;
+    height: 100vh;
+    padding-bottom: 0;
+    border-radius: 0;
+    background: #0f172a;
+}
+
+.figma-embed-wrapper.is-expanded iframe {
+    border-radius: 0;
+}
+
+.figma-embed-wrapper.is-expanded .figma-fullscreen-btn {
+    top: 1rem;
+    right: 1rem;
+}
+
 .figma-title {
     font-family: 'Outfit', sans-serif;
     font-size: clamp(1rem, 1.35vw, 1.2rem);
